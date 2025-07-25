@@ -14,7 +14,7 @@ st.markdown("Berdasarkan faktor gaya hidup selama pembelajaran daring")
 # ----------------- Input Pengguna -----------------
 gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
 age = st.slider("Usia", 17, 30, 20)
-education = st.selectbox("Tingkat Pendidikan", ["Diploma", "Sarjana", "Magister", "Doktor"])
+education = st.selectbox("Tingkat Pendidikan", ["Mahasiswa", "Siswa/Siswi", "Diploma", "Sarjana", "Magister", "Doktor"])
 screen_time = st.slider("Durasi Screen Time (jam/hari)", 0, 24, 6)
 sleep_duration = st.slider("Durasi Tidur (jam/hari)", 0, 12, 7)
 physical_activity = st.slider("Aktivitas Fisik (jam/minggu)", 0, 20, 3)
