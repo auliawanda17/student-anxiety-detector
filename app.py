@@ -24,7 +24,7 @@ academic_change = st.selectbox("Perubahan Performa Akademik", ["Meningkat", "Tet
 
 # Encode input
 gender = 1 if gender == "Laki-laki" else 0
-education_map = {"Diploma": 0, "Sarjana": 1, "Magister": 2, "Doktor": 3}
+education_map = {"Mahasiswa": 0, "Siswa/Siswi": 1, "Diploma": 2, "Sarjana": 3, "Magister": 4, "Doktor": 5}
 education = education_map[education]
 academic_map = {"Meningkat": 2, "Tetap": 1, "Menurun": 0}
 academic_change = academic_map[academic_change]
