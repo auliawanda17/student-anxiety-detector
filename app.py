@@ -4,8 +4,8 @@ import joblib
 
 # ----------------- Load Model & Tools -----------------
 model = joblib.load("svm_anxiety_model.pkl")
-feature_names = joblib.load("feature_names.pkl")
-scaler = joblib.load("scaler.pkl")
+feature_names = joblib.load("feature_names (1).pkl")
+scaler = joblib.load("scaler (1).pkl")
 
 # ----------------- Judul Aplikasi -----------------
 st.title("🧠 Klasifikasi Tingkat Kecemasan Mahasiswa Sebelum Ujian")
