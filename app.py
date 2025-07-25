@@ -38,5 +38,5 @@ input_scaled = scaler.transform(input_data)
 # ----------------- Prediksi -----------------
 if st.button("Prediksi Tingkat Kecemasan"):
     prediction = model.predict(input_scaled)[0]
-    label_map = {0: "Rendah", 1: "Sedang", 2: "Tinggi"}
-    st.success(f"Tingkat kecemasan kamu sebelum ujian adalah: **{label_map[prediction]}**")
+    label_map = {0: "Tidak Cemas", 1: "Cemas"}
+    st.success(f"Tingkat kecemasan kamu sebelum ujian: **{label_map[prediction]}**")
