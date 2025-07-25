@@ -3,7 +3,7 @@ import numpy as np
 import joblib
 
 # ----------------- Load Model & Tools -----------------
-model = joblib.load("svm_anxiety_model (1).pkl")
+model = joblib.load("svm_anxiety_model (2).pkl")
 feature_names = joblib.load("feature_names (2).pkl")
 scaler = joblib.load("scaler (2).pkl")
 
