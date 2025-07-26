@@ -4,7 +4,7 @@ import joblib
 
 # Load model dan scaler
 model = joblib.load('svm_model.pkl')
-scaler = joblib.load('scaler.pkl')
+scaler = joblib.load('scaler (1).pkl')
 
 # Judul aplikasi
 st.title("Prediksi Kecemasan Siswa Sebelum Ujian")
