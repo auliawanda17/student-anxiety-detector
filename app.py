@@ -2,41 +2,43 @@ import streamlit as st
 import numpy as np
 import joblib
 
-# ----------------- Load Model & Tools -----------------
-model = joblib.load("svm_anxiety_model (2).pkl")
-feature_names = joblib.load("feature_names (2).pkl")
-scaler = joblib.load("scaler (2).pkl")
+# Load model dan scaler
+model = joblib.load('svm_model.pkl')
+scaler = joblib.load('scaler.pkl')
 
-# ----------------- Judul Aplikasi -----------------
-st.title("🧠 Klasifikasi Tingkat Kecemasan Mahasiswa Sebelum Ujian")
-st.markdown("Berdasarkan faktor gaya hidup selama pembelajaran daring")
+# Judul aplikasi
+st.title("Prediksi Kecemasan Siswa Sebelum Ujian")
 
-# ----------------- Input Pengguna -----------------
-gender = st.selectbox("Jenis Kelamin", ["Laki-laki", "Perempuan"])
-age = st.slider("Usia", 17, 30, 20)
-education = st.selectbox("Tingkat Pendidikan", ["Mahasiswa", "Siswa/Siswi", "Diploma", "Sarjana", "Magister", "Doktor"])
-screen_time = st.slider("Durasi Screen Time (jam/hari)", 0, 24, 6)
-sleep_duration = st.slider("Durasi Tidur (jam/hari)", 0, 12, 7)
-physical_activity = st.slider("Aktivitas Fisik (jam/minggu)", 0, 20, 3)
-academic_change = st.selectbox("Perubahan Performa Akademik", ["Meningkat", "Tetap", "Menurun"])
+st.markdown("""
+Masukkan data berikut untuk memprediksi apakah seorang siswa mengalami kecemasan sebelum ujian.
+""")
 
-# ----------------- Pra-pemrosesan -----------------
+# Input pengguna
+gender = st.selectbox("Gender", ["Female", "Male"])
+age = st.number_input("Age", min_value=10, max_value=100, value=18)
+education = st.selectbox("Education Level", ["High School", "Diploma", "Bachelor", "Master"])
+screen_time = st.number_input("Screen Time (hrs/day)", min_value=0.0, value=4.0)
+sleep_duration = st.number_input("Sleep Duration (hrs)", min_value=0.0, value=7.0)
+physical_activity = st.number_input("Physical Activity (hrs/week)", min_value=0.0, value=3.0)
+performance_change = st.selectbox("Academic Performance Change", ["Increased", "Decreased", "No Change"])
 
-# Encode input
-gender = 1 if gender == "Laki-laki" else 0
-education_map = {"Mahasiswa": 0, "Siswa/Siswi": 1, "Diploma": 2, "Sarjana": 3, "Magister": 4, "Doktor": 5}
-education = education_map[education]
-academic_map = {"Meningkat": 2, "Tetap": 1, "Menurun": 0}
-academic_change = academic_map[academic_change]
+# Mapping ke angka sesuai LabelEncoder
+gender_encoded = 0 if gender == "Female" else 1
+education_map = {"High School": 0, "Diploma": 1, "Bachelor": 2, "Master": 3}
+performance_map = {"Increased": 0, "Decreased": 1, "No Change": 2}
 
-# Gabungkan semua fitur ke array numpy
-input_data = np.array([[gender, age, education, screen_time, sleep_duration, physical_activity, academic_change]])
+education_encoded = education_map[education]
+performance_encoded = performance_map[performance_change]
 
-# Skalakan data
+# Gabungkan input
+input_data = np.array([[gender_encoded, age, education_encoded, screen_time,
+                        sleep_duration, physical_activity, performance_encoded]])
+
+# Normalisasi
 input_scaled = scaler.transform(input_data)
 
-# ----------------- Prediksi -----------------
-if st.button("Prediksi Tingkat Kecemasan"):
-    prediction = model.predict(input_scaled)[0]
-    label_map = {0: "Tidak Cemas", 1: "Cemas"}
-    st.success(f"Tingkat kecemasan kamu sebelum ujian: **{label_map[prediction]}**")
+# Prediksi
+if st.button("Prediksi"):
+    prediction = model.predict(input_scaled)
+    result = 'Anxious Before Exam' if prediction[0] == 1 else 'Not Anxious'
+    st.success(f"Hasil Prediksi: {result}")
